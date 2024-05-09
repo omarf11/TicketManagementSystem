@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.Zealthy.InterviewProject.Models.Enums.TicketStatus;
+import com.mongodb.lang.Nullable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,8 +20,9 @@ public class Ticket {
     
     @Id
     private Integer ticketId;
-    
     private Integer userId;
+    
+    @Nullable
     private Integer assignedEngineerId;
     private TicketStatus ticketStatus;
     private String description;
