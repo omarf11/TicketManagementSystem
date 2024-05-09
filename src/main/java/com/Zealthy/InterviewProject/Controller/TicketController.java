@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class TicketController {
     
     //create ticket
-    //assign ticket to engineer
-    //update ticket status
-    //remove engineer from ticket
     //get all tickets
+    //update ticket status
     //get all tickets by user ID
     //get all tickets by support engineer ID
-    //update ticket status
+    //assign ticket to engineer
+    //remove engineer from ticket
     //add response to ticket
 }
