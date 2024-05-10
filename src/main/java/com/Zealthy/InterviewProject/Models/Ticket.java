@@ -21,9 +21,9 @@ public class Ticket {
     @Id
     private Integer ticketId;
     private Integer userId;
-    
+
     @Nullable
-    private Integer assignedEngineerId;
+    private Integer engineerId;
     private TicketStatus ticketStatus;
     private String description;
     private List<Message> messages;
