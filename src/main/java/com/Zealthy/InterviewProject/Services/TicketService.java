@@ -31,12 +31,14 @@ public class TicketService {
         return ticketRepository.findById(ticketId);
     }
 
-    public void updateTicketStatus(Integer ticketId, TicketStatus newStatus) {
+    public Ticket updateTicketStatus(Integer ticketId, TicketStatus newStatus) {
         Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
-        optionalTicket.ifPresent(ticket -> {
+         optionalTicket.ifPresent(ticket -> {
             ticket.setTicketStatus(newStatus);
             ticketRepository.save(ticket);
         });
+
+        return optionalTicket.get();
     }
 
     public Optional<List<Ticket>> getAllTicketsByUserId(Integer userId) {
@@ -48,19 +50,23 @@ public class TicketService {
         return ticketRepository.findByEngineerId(engineerId);
     }
 
-    public void assignTicketToEngineer(Integer ticketId, Integer engineerId) {
+    public Ticket assignTicketToEngineer(Integer ticketId, Integer engineerId) {
         Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
         optionalTicket.ifPresent(ticket -> {
             ticket.setEngineerId(engineerId);
             ticketRepository.save(ticket);
         });
+
+        return optionalTicket.get();
     }
 
-    public void removeEngineerFromTicket(Integer ticketId) {
+    public Ticket removeEngineerFromTicket(Integer ticketId) {
         Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
         optionalTicket.ifPresent(ticket -> {
             ticket.setEngineerId(null);
             ticketRepository.save(ticket);
         });
+
+        return optionalTicket.get();
     }
 }

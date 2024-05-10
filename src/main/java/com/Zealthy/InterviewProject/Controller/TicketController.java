@@ -3,7 +3,6 @@ package com.Zealthy.InterviewProject.Controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +34,6 @@ public class TicketController {
 
     private final TicketService ticketService;
 
-    @Autowired
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
     }
@@ -59,12 +57,12 @@ public class TicketController {
     }
 
     @PutMapping("/{ticketId}/status")
-    public ResponseEntity<Void> updateTicketStatus(
+    public ResponseEntity<Ticket> updateTicketStatus(
             @PathVariable Integer ticketId,
             @RequestParam TicketStatus newStatus
     ) {
-        ticketService.updateTicketStatus(ticketId, newStatus);
-        return ResponseEntity.noContent().build();
+
+       return ResponseEntity.ok( ticketService.updateTicketStatus(ticketId, newStatus));
     }
 
     @GetMapping("/user/{userId}")
@@ -80,17 +78,16 @@ public class TicketController {
     }
 
     @PutMapping("/{ticketId}/assign")
-    public ResponseEntity<Void> assignTicketToEngineer(
+    public ResponseEntity<Ticket> assignTicketToEngineer(
             @PathVariable Integer ticketId,
             @RequestParam Integer engineerId
     ) {
-        ticketService.assignTicketToEngineer(ticketId, engineerId);
-        return ResponseEntity.noContent().build();
+       return ResponseEntity.ok( ticketService.assignTicketToEngineer(ticketId, engineerId));
     }
 
     @PutMapping("/{ticketId}/remove-engineer")
-    public ResponseEntity<Void> removeEngineerFromTicket(@PathVariable Integer ticketId) {
-        ticketService.removeEngineerFromTicket(ticketId);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Ticket> removeEngineerFromTicket(@PathVariable Integer ticketId) {
+       return ResponseEntity.ok( ticketService.removeEngineerFromTicket(ticketId));
+
     }
 }
