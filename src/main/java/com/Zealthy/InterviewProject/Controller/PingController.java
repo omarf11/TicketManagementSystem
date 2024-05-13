@@ -1,5 +1,6 @@
 package com.Zealthy.InterviewProject.Controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,5 +12,14 @@ public class PingController {
     
     @GetMapping
     public ResponseEntity<String> ping() {
-        return ResponseEntity.ok(java.time.LocalDateTime.now().toString());
+
+        try {
+            return ResponseEntity.ok(java.time.LocalDateTime.now().toString());
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An error occurred: " + e.getMessage());
+        }
     }}
