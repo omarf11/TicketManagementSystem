@@ -16,7 +16,7 @@ public class PingController {
         try {
             return ResponseEntity.ok(java.time.LocalDateTime.now().toString());
         } catch (Exception e) {
-            // TODO: handle exception
+
             System.out.println(e.getMessage());
             e.printStackTrace();
   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
