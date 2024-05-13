@@ -16,7 +16,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 @Document("tickets")
-public class Ticket {
+public class Ticket implements ApiResponse{
     
     @Id
     private Integer ticketId;

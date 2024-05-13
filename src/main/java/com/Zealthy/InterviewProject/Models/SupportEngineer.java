@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class SupportEngineer {
+public class SupportEngineer implements ApiResponse{
     
     @Id
     private Integer employeeId;
