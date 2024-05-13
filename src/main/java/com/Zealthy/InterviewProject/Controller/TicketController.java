@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import com.Zealthy.InterviewProject.Models.Ticket;
 import com.Zealthy.InterviewProject.Models.Enums.TicketStatus;
 import com.Zealthy.InterviewProject.Services.TicketService;
 
+@CrossOrigin(origins = "*") 
 @RestController
 @RequestMapping("/api/tickets")
 public class TicketController {
