@@ -27,11 +27,11 @@ public class TicketService {
         return ticketRepository.findAll();
     }
 
-    public Optional<Ticket> getTicketById(Integer ticketId) {
+    public Optional<Ticket> getTicketById(String ticketId) {
         return ticketRepository.findById(ticketId);
     }
 
-    public Ticket updateTicketStatus(Integer ticketId, TicketStatus newStatus) {
+    public Ticket updateTicketStatus(String ticketId, TicketStatus newStatus) {
         Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
          optionalTicket.ifPresent(ticket -> {
             ticket.setTicketStatus(newStatus);
@@ -41,16 +41,16 @@ public class TicketService {
         return optionalTicket.get();
     }
 
-    public Optional<List<Ticket>> getAllTicketsByUserId(Integer userId) {
+    public Optional<List<Ticket>> getAllTicketsByUserId(String userId) {
         return ticketRepository.findByUserId(userId);
     }
     
 
-    public  Optional<List<Ticket>> getAllTicketsByEngineerId(Integer engineerId) {
+    public  Optional<List<Ticket>> getAllTicketsByEngineerId(String engineerId) {
         return ticketRepository.findByEngineerId(engineerId);
     }
 
-    public Ticket assignTicketToEngineer(Integer ticketId, Integer engineerId) {
+    public Ticket assignTicketToEngineer(String ticketId, String engineerId) {
         Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
         optionalTicket.ifPresent(ticket -> {
             ticket.setEngineerId(engineerId);
@@ -60,7 +60,7 @@ public class TicketService {
         return optionalTicket.get();
     }
 
-    public Ticket removeEngineerFromTicket(Integer ticketId) {
+    public Ticket removeEngineerFromTicket(String ticketId) {
         Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
         optionalTicket.ifPresent(ticket -> {
             ticket.setEngineerId(null);

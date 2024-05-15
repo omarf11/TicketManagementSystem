@@ -69,14 +69,14 @@ public class TicketController {
     }
 
     @GetMapping("/{ticketId}")
-    public ResponseEntity<Ticket> getTicketById(@PathVariable Integer ticketId) {
+    public ResponseEntity<Ticket> getTicketById(@PathVariable String ticketId) {
         Optional<Ticket> optionalTicket = ticketService.getTicketById(ticketId);
         return optionalTicket.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{ticketId}/status")
     public ResponseEntity<ApiResponse> updateTicketStatus(
-            @PathVariable Integer ticketId,
+            @PathVariable String ticketId,
             @RequestParam TicketStatus newStatus) {
 
         try {
@@ -96,13 +96,13 @@ public class TicketController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Ticket>> getAllTicketsByUserId(@PathVariable Integer userId) {
+    public ResponseEntity<List<Ticket>> getAllTicketsByUserId(@PathVariable String userId) {
         Optional<List<Ticket>> optionalTickets = ticketService.getAllTicketsByUserId(userId);
         return optionalTickets.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/engineer/{engineerId}")
-    public ResponseEntity<List<Ticket>> getAllTicketsByEngineerId(@PathVariable Integer engineerId) {
+    public ResponseEntity<List<Ticket>> getAllTicketsByEngineerId(@PathVariable String engineerId) {
 
         Optional<List<Ticket>> optionalTickets = ticketService.getAllTicketsByEngineerId(engineerId);
         return optionalTickets.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -111,8 +111,8 @@ public class TicketController {
 
     @PutMapping("/{ticketId}/assign")
     public ResponseEntity<ApiResponse> assignTicketToEngineer(
-            @PathVariable Integer ticketId,
-            @RequestParam Integer engineerId) {
+            @PathVariable String ticketId,
+            @RequestParam String engineerId) {
         try {
             return ResponseEntity.ok(ticketService.assignTicketToEngineer(ticketId, engineerId));
 
@@ -130,7 +130,7 @@ public class TicketController {
     }
 
     @PutMapping("/{ticketId}/remove-engineer")
-    public ResponseEntity<ApiResponse> removeEngineerFromTicket(@PathVariable Integer ticketId) {
+    public ResponseEntity<ApiResponse> removeEngineerFromTicket(@PathVariable String ticketId) {
         try {
             return ResponseEntity.ok(ticketService.removeEngineerFromTicket(ticketId));
 

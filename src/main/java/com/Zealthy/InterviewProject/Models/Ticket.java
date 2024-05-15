@@ -19,13 +19,14 @@ import lombok.Data;
 public class Ticket implements ApiResponse{
     
     @Id
-    private Integer ticketId;
-    private Integer userId;
+    private String ticketId;
+    private String userId;
 
     @Nullable
-    private Integer engineerId;
+    private String engineerId;
     private TicketStatus ticketStatus;
     private String description;
     private List<Message> messages;
+    private String createdAt;
 
 }
