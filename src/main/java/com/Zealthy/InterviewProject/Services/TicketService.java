@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.Zealthy.InterviewProject.Models.Message;
 import com.Zealthy.InterviewProject.Models.Ticket;
 import com.Zealthy.InterviewProject.Models.Enums.TicketStatus;
 import com.Zealthy.InterviewProject.Repositories.TicketRepository;
@@ -46,9 +47,6 @@ public class TicketService {
     }
     
 
-    public  Optional<List<Ticket>> getAllTicketsByEngineerId(String engineerId) {
-        return ticketRepository.findByEngineerId(engineerId);
-    }
 
     public Ticket assignTicketToEngineer(String ticketId, String engineerId) {
         Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
@@ -64,6 +62,18 @@ public class TicketService {
         Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
         optionalTicket.ifPresent(ticket -> {
             ticket.setEngineerId(null);
+            ticketRepository.save(ticket);
+        });
+
+        return optionalTicket.get();
+    }
+
+    public Ticket addMessage(String ticketId, Message message) {
+        
+        Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
+
+        optionalTicket.ifPresent(ticket -> {
+            ticket.addMessage(message);
             ticketRepository.save(ticket);
         });
 

@@ -21,12 +21,16 @@ public class Ticket implements ApiResponse{
     @Id
     private String ticketId;
     private String userId;
-
+    private String subject;
     @Nullable
     private String engineerId;
     private TicketStatus ticketStatus;
     private String description;
     private List<Message> messages;
     private String createdAt;
+
+    public void addMessage(Message message) {
+        this.messages.add(message);
+    }
 
 }

@@ -17,24 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Zealthy.InterviewProject.Models.ApiResponse;
 import com.Zealthy.InterviewProject.Models.ErrorMessage;
+import com.Zealthy.InterviewProject.Models.Message;
 import com.Zealthy.InterviewProject.Models.Ticket;
 import com.Zealthy.InterviewProject.Models.Enums.TicketStatus;
 import com.Zealthy.InterviewProject.Services.TicketService;
 
-@CrossOrigin(origins = "*") 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/tickets")
 public class TicketController {
-
-    // create ticket
-
-    // get all tickets
-    // update ticket status
-    // get all tickets by user ID
-    // get all tickets by support engineer ID
-    // assign ticket to engineer
-    // remove engineer from ticket
-    // add response to ticket
 
     private final TicketService ticketService;
 
@@ -51,14 +42,11 @@ public class TicketController {
 
         } catch (Exception e) {
 
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            ErrorMessage errorMessage = ErrorMessage
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ErrorMessage
                     .builder()
                     .message(e.getMessage())
-                    .build();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(errorMessage);
+                    .build());
         }
     }
 
@@ -84,14 +72,11 @@ public class TicketController {
 
         } catch (Exception e) {
 
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            ErrorMessage errorMessage = ErrorMessage
-                    .builder()
-                    .message(e.getMessage())
-                    .build();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(errorMessage);
+                    .body(ErrorMessage
+                            .builder()
+                            .message(e.getMessage())
+                            .build());
         }
     }
 
@@ -99,14 +84,6 @@ public class TicketController {
     public ResponseEntity<List<Ticket>> getAllTicketsByUserId(@PathVariable String userId) {
         Optional<List<Ticket>> optionalTickets = ticketService.getAllTicketsByUserId(userId);
         return optionalTickets.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/engineer/{engineerId}")
-    public ResponseEntity<List<Ticket>> getAllTicketsByEngineerId(@PathVariable String engineerId) {
-
-        Optional<List<Ticket>> optionalTickets = ticketService.getAllTicketsByEngineerId(engineerId);
-        return optionalTickets.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-
     }
 
     @PutMapping("/{ticketId}/assign")
@@ -117,33 +94,26 @@ public class TicketController {
             return ResponseEntity.ok(ticketService.assignTicketToEngineer(ticketId, engineerId));
 
         } catch (Exception e) {
-
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            ErrorMessage errorMessage = ErrorMessage
-                    .builder()
-                    .message(e.getMessage())
-                    .build();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(errorMessage);
+                    .body(ErrorMessage
+                            .builder()
+                            .message(e.getMessage())
+                            .build());
         }
     }
-
-    @PutMapping("/{ticketId}/remove-engineer")
-    public ResponseEntity<ApiResponse> removeEngineerFromTicket(@PathVariable String ticketId) {
+    @PutMapping("/addMessage/{ticketId}")
+    public ResponseEntity<ApiResponse> addMessageToTicket(
+            @PathVariable String ticketId,
+            @RequestBody Message message) {
         try {
-            return ResponseEntity.ok(ticketService.removeEngineerFromTicket(ticketId));
+            return ResponseEntity.ok(ticketService.addMessage(ticketId, message));
 
         } catch (Exception e) {
-
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            ErrorMessage errorMessage = ErrorMessage
-                    .builder()
-                    .message(e.getMessage())
-                    .build();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(errorMessage);
+                    .body(ErrorMessage
+                            .builder()
+                            .message(e.getMessage())
+                            .build());
         }
     }
 }
