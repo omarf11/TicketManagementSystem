@@ -44,9 +44,9 @@ public class TicketController {
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(ErrorMessage
-                    .builder()
-                    .message(e.getMessage())
-                    .build());
+                            .builder()
+                            .message(e.getMessage())
+                            .build());
         }
     }
 
@@ -101,6 +101,7 @@ public class TicketController {
                             .build());
         }
     }
+
     @PutMapping("/addMessage/{ticketId}")
     public ResponseEntity<ApiResponse> addMessageToTicket(
             @PathVariable String ticketId,
@@ -110,10 +111,11 @@ public class TicketController {
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(ErrorMessage
-                            .builder()
-                            .message(e.getMessage())
-                            .build());
+                    .body(
+                            ErrorMessage
+                                    .builder()
+                                    .message(e.getMessage())
+                                    .build());
         }
     }
 }

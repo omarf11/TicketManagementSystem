@@ -69,14 +69,15 @@ public class TicketService {
     }
 
     public Ticket addMessage(String ticketId, Message message) {
-        
+
         Optional<Ticket> optionalTicket = ticketRepository.findById(ticketId);
 
-        optionalTicket.ifPresent(ticket -> {
+        if (optionalTicket.isPresent()) {
+            Ticket ticket = optionalTicket.get();
             ticket.addMessage(message);
-            ticketRepository.save(ticket);
-        });
-
-        return optionalTicket.get();
+            return ticketRepository.save(ticket);
+        } else {
+            throw new RuntimeException("Ticket not found with id: " + ticketId);
+        }
     }
 }
